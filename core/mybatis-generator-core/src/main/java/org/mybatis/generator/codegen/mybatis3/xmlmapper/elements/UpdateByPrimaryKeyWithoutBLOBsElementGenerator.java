@@ -109,7 +109,7 @@ public class UpdateByPrimaryKeyWithoutBLOBsElementGenerator extends
         }
 
         //添加分库分表的路由字段设置
-        PartitionUtil.addPartitionField(answer, introspectedTable, sb, and);
+        PartitionUtil.addPartition(answer, introspectedTable, sb, and);
 
         if (context.getPlugins()
                 .sqlMapUpdateByPrimaryKeyWithoutBLOBsElementGenerated(answer,

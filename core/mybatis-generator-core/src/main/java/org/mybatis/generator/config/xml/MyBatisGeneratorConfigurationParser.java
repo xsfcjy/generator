@@ -40,6 +40,7 @@ import java.util.Properties;
 import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.ColumnRenamingRule;
 import org.mybatis.generator.config.CommentGeneratorConfiguration;
+import org.mybatis.generator.config.ConditionField;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.ConnectionFactoryConfiguration;
 import org.mybatis.generator.config.Context;
@@ -52,6 +53,7 @@ import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
 import org.mybatis.generator.config.JavaModelGeneratorConfiguration;
 import org.mybatis.generator.config.JavaTypeResolverConfiguration;
 import org.mybatis.generator.config.ModelType;
+import org.mybatis.generator.config.PartitionField;
 import org.mybatis.generator.config.PluginConfiguration;
 import org.mybatis.generator.config.PropertyHolder;
 import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
@@ -273,7 +275,8 @@ public class MyBatisGeneratorConfigurationParser {
         
 
         String partitionField = attributes.getProperty("partitionField"); //$NON-NLS-1$
-
+        String parameterType = attributes.getProperty("parameterType"); //$NON-NLS-1$
+        
         if (stringHasValue(catalog)) {
             tc.setCatalog(catalog);
         }
@@ -369,6 +372,10 @@ public class MyBatisGeneratorConfigurationParser {
         	tc.setPartitionField(partitionField);
         }
         
+        if(stringHasValue(parameterType)){
+        	tc.setParameterType(parameterType);
+        }
+        
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node childNode = nodeList.item(i);
@@ -389,6 +396,10 @@ public class MyBatisGeneratorConfigurationParser {
                 parseGeneratedKey(tc, childNode);
             } else if ("columnRenamingRule".equals(childNode.getNodeName())) { //$NON-NLS-1$
                 parseColumnRenamingRule(tc, childNode);
+            } else if("conditionField".equals(childNode.getNodeName())){
+            	parseConditionField(tc, childNode);
+            } else if("partitionField".equals(childNode.getNodeName())){
+            	parsePartitionField(tc, childNode);
             }
         }
     }
@@ -445,7 +456,31 @@ public class MyBatisGeneratorConfigurationParser {
 
         tc.addColumnOverride(co);
     }
+    private void parseConditionField(TableConfiguration tc, Node node) {
+        Properties attributes = parseAttributes(node);
+        String name = attributes.getProperty("name"); //$NON-NLS-1$
+        String operate = attributes.getProperty("operate"); //$NON-NLS-1$
+        String leftString = attributes.getProperty("leftString"); //$NON-NLS-1$
+        String rightString = attributes.getProperty("rightString"); //$NON-NLS-1$
+        
+        ConditionField conditionField = new ConditionField(name);
+        if(null!=operate)
+        	conditionField.setOperate(operate);
+        if(null!=leftString)
+        	conditionField.setLeftString(leftString);
+        if(null!=rightString)
+        	conditionField.setRightString(rightString);
+        
+        tc.addConditionField(conditionField);
+    }
+    private void parsePartitionField(TableConfiguration tc, Node node) {
+        Properties attributes = parseAttributes(node);
+        String name = attributes.getProperty("name"); //$NON-NLS-1$
 
+        PartitionField partitionField = new PartitionField(name);
+        
+        tc.addPartitionField(partitionField);
+    }
     private void parseGeneratedKey(TableConfiguration tc, Node node) {
         Properties attributes = parseAttributes(node);
 

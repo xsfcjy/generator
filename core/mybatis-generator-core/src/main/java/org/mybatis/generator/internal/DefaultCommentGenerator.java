@@ -469,7 +469,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" 动态字段,根据主键来更新符合条件的数据库记录");
         } else if ("updateByPrimaryKey".equals(method_name)) {
             sb.append(" 根据主键来更新符合条件的数据库记录");
+        } else if ("selectByCondition".equals(method_name)) {
+            sb.append(" 根据条件查询数据库记录");
         }
+        
         sb.append(",");
         sb.append(introspectedTable.getFullyQualifiedTable());
         method.addJavaDocLine(sb.toString());

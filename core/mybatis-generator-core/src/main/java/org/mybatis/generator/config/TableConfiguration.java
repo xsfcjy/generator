@@ -61,9 +61,15 @@ public class TableConfiguration extends PropertyHolder {
 
     /** The update by example statement enabled. */
     private boolean updateByExampleStatementEnabled;
-
+    
     /** The column overrides. */
     private List<ColumnOverride> columnOverrides;
+
+    /** The column overrides. */
+    private List<ConditionField> conditionFields;
+
+    /** The column overrides. */
+    private List<PartitionField> partitionFields;
 
     /** The ignored columns. */
     private Map<IgnoredColumn, Boolean> ignoredColumns;
@@ -106,6 +112,8 @@ public class TableConfiguration extends PropertyHolder {
     
     /** The field of partition for db table of mycat. */
     private String partitionField;
+    
+    private String parameterType;
 
     /** The column renaming rule. */
     private ColumnRenamingRule columnRenamingRule;
@@ -130,6 +138,8 @@ public class TableConfiguration extends PropertyHolder {
         this.modelType = context.getDefaultModelType();
 
         columnOverrides = new ArrayList<ColumnOverride>();
+        conditionFields = new ArrayList<ConditionField>();
+        partitionFields = new ArrayList<PartitionField>();
         ignoredColumns = new HashMap<IgnoredColumn, Boolean>();
 
         insertStatementEnabled = true;
@@ -269,7 +279,28 @@ public class TableConfiguration extends PropertyHolder {
     public void addColumnOverride(ColumnOverride columnOverride) {
         columnOverrides.add(columnOverride);
     }
+    
+    /**
+     * Adds the column override.
+     *
+     * @param conditionField
+     *            the column override
+     */
+    public void addConditionField(ConditionField conditionField) {
+    	conditionFields.add(conditionField);
+    }
+    
+    /**
+     * Adds the column override.
+     *
+     * @param partitionField
+     *            the column override
+     */
+    public void addPartitionField(PartitionField partitionField) {
+    	partitionFields.add(partitionField);
+    }
 
+    
     /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -542,7 +573,16 @@ public class TableConfiguration extends PropertyHolder {
         return columnOverrides;
     }
 
-    /**
+
+    public List<ConditionField> getConditionFields() {
+		return conditionFields;
+	}
+    
+    public List<PartitionField> getPartitionFields() {
+		return partitionFields;
+	}
+
+	/**
      * This method returns a List of Strings. The values are the columns
      * that were specified to be ignored in the table, but do not exist in the
      * table.
@@ -915,6 +955,14 @@ public class TableConfiguration extends PropertyHolder {
 
 	public void setPartitionField(String partitionField) {
 		this.partitionField = partitionField;
+	}
+
+	public String getParameterType() {
+		return parameterType;
+	}
+
+	public void setParameterType(String parameterType) {
+		this.parameterType = parameterType;
 	}
     
     

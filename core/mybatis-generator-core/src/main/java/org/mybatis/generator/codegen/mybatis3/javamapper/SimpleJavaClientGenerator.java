@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ *    Copyright 2006-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import org.mybatis.generator.codegen.mybatis3.javamapper.elements.AbstractJavaMa
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.DeleteByPrimaryKeyMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.InsertMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectAllMethodGenerator;
+import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByConditionMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByPrimaryKeyMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByPrimaryKeyWithoutBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.SimpleXMLMapperGenerator;
@@ -85,6 +86,7 @@ public class SimpleJavaClientGenerator extends AbstractJavaClientGenerator {
         addSelectByPrimaryKeyMethod(interfaze);
         addSelectAllMethod(interfaze);
         addUpdateByPrimaryKeyMethod(interfaze);
+        addSelectByConditionMethod(interfaze);
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -131,6 +133,11 @@ public class SimpleJavaClientGenerator extends AbstractJavaClientGenerator {
             AbstractJavaMapperMethodGenerator methodGenerator = new UpdateByPrimaryKeyWithoutBLOBsMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
+    }
+    
+    protected void addSelectByConditionMethod(Interface interfaze) {
+        AbstractJavaMapperMethodGenerator methodGenerator = new SelectByConditionMethodGenerator();
+        initializeAndExecuteGenerator(methodGenerator, interfaze);
     }
 
     protected void initializeAndExecuteGenerator(

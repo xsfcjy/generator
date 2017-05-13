@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ *    Copyright 2006-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.PartitionUtil;
 
 /**
  * 
@@ -94,6 +95,8 @@ public class DeleteByPrimaryKeyMethodGenerator extends
             interfaze.addImportedTypes(importedTypes);
             interfaze.addMethod(method);
         }
+        
+        PartitionUtil.addPartitionJavaMethodParameterType(method, introspectedTable);
     }
 
     public void addMapperAnnotations(Interface interfaze, Method method) {

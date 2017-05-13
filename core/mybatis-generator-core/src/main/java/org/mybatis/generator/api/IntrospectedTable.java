@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ *    Copyright 2006-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -174,7 +174,9 @@ public abstract class IntrospectedTable {
         ATTR_MYBATIS3_UPDATE_BY_EXAMPLE_WHERE_CLAUSE_ID,
         
         /** The ATT r_ mybati s3_ sq l_ provide r_ type. */
-        ATTR_MYBATIS3_SQL_PROVIDER_TYPE
+        ATTR_MYBATIS3_SQL_PROVIDER_TYPE,
+        
+        ATTR_SELECT_BY_CONDITION_STATEMENT_ID // 通过条件查询SQL ID 
     }
 
     /** The table configuration. */
@@ -807,6 +809,7 @@ public abstract class IntrospectedTable {
         setBaseColumnListId("Base_Column_List"); //$NON-NLS-1$
         setBlobColumnListId("Blob_Column_List"); //$NON-NLS-1$
         setMyBatis3UpdateByExampleWhereClauseId("Update_By_Example_Where_Clause"); //$NON-NLS-1$
+        setSelectByConditionStatementId("selectByCondition"); 
     }
 
     /**
@@ -1909,4 +1912,13 @@ public abstract class IntrospectedTable {
 	public void setTableType(String tableType) {
 		this.tableType = tableType;
 	}
+	
+    public void setSelectByConditionStatementId(String s) {  
+        internalAttributes.put(InternalAttribute.ATTR_SELECT_BY_CONDITION_STATEMENT_ID, s);  
+    }  
+      
+    public String getSelectByConditionStatementId() {  
+        return internalAttributes  
+                .get(InternalAttribute.ATTR_SELECT_BY_CONDITION_STATEMENT_ID);  
+    }  
 }

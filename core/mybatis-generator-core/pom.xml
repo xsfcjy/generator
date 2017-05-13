@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2006-2016 the original author or authors.
+       Copyright 2006-2017 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -125,16 +125,15 @@
   </dependencies>
 
   <distributionManagement>
-    <site>
-      <id>gh-pages</id>
-      <name>Mybatis Generator GitHub Pages</name>
-      <url>git:ssh://git@github.com/mybatis/generator.git?gh-pages#</url>
-    </site>
-  </distributionManagement>
+		<repository>
+			<id>sfxie-releases</id>
+			<url>http://xsfcjy.oicp.net:8888/nexus-2.6.4-02/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>sfxie-snapshots</id>
+			<url>http://xsfcjy.oicp.net:8888/nexus-2.6.4-02/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
   <description>MyBatis Generator - a code generator for MyBatis and iBatis.</description>
-  <scm>
-    <url>https://github.com/mybatis/generator</url>
-    <tag>mybatis-generator-1.3.5</tag>
-  </scm>
 </project>

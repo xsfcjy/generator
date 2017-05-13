@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ *    Copyright 2006-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -169,4 +169,20 @@ public class XmlElement extends Element {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public void removeAttribute(String name){
+    	if(null==attributes)
+    		return;
+    	int index = -1;
+    	for(int i=0;i < attributes.size();i++){
+    		Attribute a = attributes.get(i);
+    		if(a.getName().equals(name)){
+    			index = i;
+    			break;
+    		}
+    	}
+    	if(index != -1)
+    		attributes.remove(index);
+    }
+    
 }

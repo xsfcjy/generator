@@ -150,7 +150,7 @@
   The table element is used to specify a database table that will be the source information
   for a set of generated objects.
 -->
-<!ELEMENT table (property*, generatedKey?, columnRenamingRule?, (columnOverride | ignoreColumn | ignoreColumnsByRegex)*) >
+<!ELEMENT table (property*, generatedKey?, columnRenamingRule?, (columnOverride | conditionField | partitionField | ignoreColumn | ignoreColumnsByRegex)*) >
 <!ATTLIST table
   catalog CDATA #IMPLIED
   schema CDATA #IMPLIED
@@ -173,7 +173,8 @@
   escapeWildcards CDATA #IMPLIED
   delimitIdentifiers CDATA #IMPLIED
   delimitAllColumns CDATA #IMPLIED
-  partitionField CDATA #IMPLIED>
+  partitionField CDATA #IMPLIED
+  parameterType CDATA #IMPLIED>
 
 <!--
   The columnOverride element is used to change certain attributes of the column
@@ -188,7 +189,19 @@
   typeHandler CDATA #IMPLIED
   isGeneratedAlways CDATA #IMPLIED
   delimitedColumnName CDATA #IMPLIED>
-
+  
+<!ELEMENT conditionField (property*)>
+<!ATTLIST conditionField
+  name CDATA #REQUIRED
+  operate CDATA #IMPLIED
+  leftString CDATA #IMPLIED
+  rightString CDATA #IMPLIED
+  >
+  
+<!ELEMENT partitionField (property*)>
+<!ATTLIST partitionField
+  name CDATA #REQUIRED>
+  
 <!--
   The ignoreColumn element is used to identify a column that should be ignored.
   No generated SQL will refer to the column, and no property will be generated
